@@ -17,13 +17,12 @@ public class HelloProducer {
         int numEvents;
 
         if (args.length != 2) {
-            System.out.println("Please provide command line arguments: topicName numEvents");
-            System.exit(-1);
+            logger.debug("Please provide command line arguments: topicName numEvents");
         }
         topicName = args[0];
         numEvents = Integer.valueOf(args[1]);
         logger.info("Starting HelloProducer...");
-        logger.debug("topicName=" + topicName + ", numEvents=" + numEvents);
+        logger.debug("topicName= {}, numEvents= {}", topicName, numEvents);
         logger.trace("Creating Kafka Producer...");
         Properties props = new Properties();
         props.put(ProducerConfig.CLIENT_ID_CONFIG, "HelloProducer");
@@ -37,7 +36,7 @@ public class HelloProducer {
                 producer.send(new ProducerRecord<>(topicName, i, "Simple Message-" + i));
             }
         } catch (KafkaException e) {
-            logger.error("Exception occurred – Check log for more details.\n" + e.getMessage());
+            logger.error("Exception occurred – Check log for more details.", e);
             System.exit(-1);
         } finally {
             logger.info("Finished HelloProducer – Closing Kafka Producer.");

@@ -12,6 +12,10 @@ import org.slf4j.LoggerFactory;
 public final class FileToTextUtil {
     private static final Logger log = LoggerFactory.getLogger(FileToTextUtil.class);
 
+    private FileToTextUtil() {
+        throw new IllegalStateException("Utility class");
+    }
+
     public static String read(String filePath) {
         StringBuilder contentBuilder = new StringBuilder();
         try (Stream<String> stream = Files.lines(Paths.get(filePath), StandardCharsets.UTF_8)) {
