@@ -1,4 +1,4 @@
-package utils;
+package org.example.DataStreams.utils;
 
 import java.util.Collection;
 import java.util.HashSet;

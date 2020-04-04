@@ -1,4 +1,4 @@
-package service;
+package org.example.DataStreams.service;
 
 import java.util.Collection;
 import java.util.LinkedList;

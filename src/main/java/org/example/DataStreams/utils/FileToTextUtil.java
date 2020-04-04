@@ -1,4 +1,4 @@
-package utils;
+package org.example.DataStreams.utils;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
