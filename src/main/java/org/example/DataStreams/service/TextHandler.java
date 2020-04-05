@@ -1,6 +1,11 @@
 package org.example.DataStreams.service;
 
-import java.util.Queue;
+import org.example.DataStreams.domain.Event;
+import org.example.DataStreams.domain.StringEvent;
 
-public class TextHandler extends Handler {
+import lombok.Builder;
+
+@Builder
+public class TextHandler extends Handler<Event, StringEvent> {
+    private String pathFile;
 }

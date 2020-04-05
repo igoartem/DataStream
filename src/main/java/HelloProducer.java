@@ -7,39 +7,45 @@ import org.apache.kafka.common.KafkaException;
 import org.apache.kafka.common.serialization.IntegerSerializer;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import kafka.zk.KafkaZkClient;
 
 public class HelloProducer {
-    private static final Logger logger = LogManager.getLogger(HelloProducer.class);
+    private static final Logger log = LoggerFactory.getLogger(HelloProducer.class);
 
     public static void main(String[] args) {
         String topicName;
         int numEvents;
 
-        if (args.length != 2) {
-            logger.debug("Please provide command line arguments: topicName numEvents");
-        }
-        topicName = args[0];
-        numEvents = Integer.valueOf(args[1]);
-        logger.info("Starting HelloProducer...");
-        logger.debug("topicName= {}, numEvents= {}", topicName, numEvents);
-        logger.trace("Creating Kafka Producer...");
+        //        if (args.length != 2) {
+        //            log.debug("Please provide command line arguments: topicName numEvents");
+        //        }
+        topicName = "test";
+        numEvents = 1;
+        log.info("Starting HelloProducer...");
+        log.debug("topicName= {}, numEvents= {}", topicName, numEvents);
+        log.trace("Creating Kafka Producer...");
         Properties props = new Properties();
         props.put(ProducerConfig.CLIENT_ID_CONFIG, "HelloProducer");
         props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
         props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, IntegerSerializer.class.getName());
         props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
         KafkaProducer<Integer, String> producer = new KafkaProducer<>(props);
-        logger.trace("Start sending messages...");
+        log.trace("Start sending messages...");
+        
+  
+ 
         try {
             for (int i = 1; i <= numEvents; i++) {
                 producer.send(new ProducerRecord<>(topicName, i, "Simple Message-" + i));
             }
         } catch (KafkaException e) {
-            logger.error("Exception occurred – Check log for more details.", e);
+            log.error("Exception occurred – Check log for more details.", e);
             System.exit(-1);
         } finally {
-            logger.info("Finished HelloProducer – Closing Kafka Producer.");
+            log.info("Finished HelloProducer – Closing Kafka Producer.");
             producer.close();
         }
     }
