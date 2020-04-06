@@ -9,7 +9,7 @@ import lombok.ToString;
 @Setter
 @ToString
 @Builder
-public class SymbolEvent extends Event<Character> {
+public class WordEvent extends Event<Character> {
     private Character value;
 
 }

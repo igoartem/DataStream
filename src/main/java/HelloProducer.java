@@ -1,5 +1,9 @@
+import java.time.Duration;
+import java.util.Collections;
 import java.util.Properties;
 
+import org.apache.kafka.clients.consumer.Consumer;
+import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.clients.producer.ProducerRecord;
@@ -7,6 +11,7 @@ import org.apache.kafka.common.KafkaException;
 import org.apache.kafka.common.serialization.IntegerSerializer;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.apache.logging.log4j.LogManager;
+import org.example.DataStreams.utils.KafkaUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -18,12 +23,9 @@ public class HelloProducer {
     public static void main(String[] args) {
         String topicName;
         int numEvents;
-
-        //        if (args.length != 2) {
-        //            log.debug("Please provide command line arguments: topicName numEvents");
-        //        }
+        
         topicName = "test";
-        numEvents = 1;
+        numEvents = 10;
         log.info("Starting HelloProducer...");
         log.debug("topicName= {}, numEvents= {}", topicName, numEvents);
         log.trace("Creating Kafka Producer...");
@@ -35,7 +37,9 @@ public class HelloProducer {
         KafkaProducer<Integer, String> producer = new KafkaProducer<>(props);
         log.trace("Start sending messages...");
         
-  
+        KafkaConsumer<Integer, String> consumer = KafkaUtils.createConsumer();
+        
+   
  
         try {
             for (int i = 1; i <= numEvents; i++) {
@@ -48,5 +52,11 @@ public class HelloProducer {
             log.info("Finished HelloProducer – Closing Kafka Producer.");
             producer.close();
         }
+        
+           consumer.poll(Duration.ofSeconds(100)).forEach(longStringConsumerRecord -> {
+               System.out.println(longStringConsumerRecord);
+            log.error("111 {} {}", longStringConsumerRecord.key(), longStringConsumerRecord.value());
+           });
+           consumer.commitSync();
     }
 }

@@ -8,4 +8,7 @@ import lombok.Builder;
 @Builder
 public class TextHandler extends Handler<Event, StringEvent> {
     private String pathFile;
+    
+    public void run(){
+    }
 }

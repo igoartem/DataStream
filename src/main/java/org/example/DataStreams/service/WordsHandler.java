@@ -1,27 +1,17 @@
 package org.example.DataStreams.service;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Queue;
-
-import org.apache.commons.lang3.ObjectUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.example.DataStreams.domain.StringEvent;
-import org.example.DataStreams.domain.SymbolEvent;
-import org.example.DataStreams.utils.WordToSymbolsUtil;
+import org.example.DataStreams.domain.WordEvent;
 
 import lombok.Builder;
-import lombok.SneakyThrows;
 
 @Builder
-public class WordsHandler extends Handler<StringEvent, SymbolEvent> {
+public class WordsHandler extends Handler<StringEvent, WordEvent> {
     private static final Logger log = LogManager.getLogger(WordsHandler.class);
 
-
-
     public void run() {
-        log.error("!!!!!!!!!!!!!!!!!!!dich");
         StringEvent currentMessage;
         //        currentMessage = getInputQueue().poll();
         //        log.error("cur {}", currentMessage);
