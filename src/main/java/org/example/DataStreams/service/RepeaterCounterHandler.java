@@ -3,6 +3,8 @@ package org.example.DataStreams.service;
 import java.util.LinkedList;
 import java.util.Queue;
 
+import org.apache.kafka.clients.consumer.KafkaConsumer;
+import org.apache.kafka.clients.producer.KafkaProducer;
 import org.example.DataStreams.domain.Event;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,10 +14,6 @@ import lombok.Builder;
 @Builder
 public class RepeaterCounterHandler extends Handler<Event, Event> {
     private static final Logger log = LoggerFactory.getLogger(RepeaterCounterHandler.class);
-
-    //    private Queue<Event> inputQueue = new LinkedList();
-    //    private Queue<Event> outputQueue = new LinkedList();
-
     private Long timeOut;
 
     public void run(Long time) {
@@ -39,5 +37,15 @@ public class RepeaterCounterHandler extends Handler<Event, Event> {
             //                log.error("ss {}", getOutputQueue().size());
             //        }
         }
+    }
+
+    @Override
+    public KafkaProducer<String, Event> getProducer() {
+        return null;
+    }
+
+    @Override
+    public KafkaConsumer<String, Event> getConsumer() {
+        return null;
     }
 }

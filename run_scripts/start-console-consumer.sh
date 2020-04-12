@@ -1,2 +1,2 @@
 #!/bin/bash
-/home/kafka/kafka/bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic test --from-beginning 
+/home/kafka/kafka/bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic test1 --from-beginning 

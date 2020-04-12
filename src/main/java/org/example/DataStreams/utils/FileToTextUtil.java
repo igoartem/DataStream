@@ -16,14 +16,8 @@ public final class FileToTextUtil {
         throw new IllegalStateException("Utility class");
     }
 
-    public static String read(String filePath) {
-        StringBuilder contentBuilder = new StringBuilder();
-        try (Stream<String> stream = Files.lines(Paths.get(filePath), StandardCharsets.UTF_8)) {
-            stream.forEach(s -> contentBuilder.append(s).append("\n"));
-        } catch (IOException e) {
-            log.error("", e);
-        }
-        return contentBuilder.toString();
+    public static Stream<String> read(String filePath) throws IOException {
+        return Files.lines(Paths.get(filePath), StandardCharsets.UTF_8);
     }
 
 }

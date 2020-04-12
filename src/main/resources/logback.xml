@@ -1,0 +1,30 @@
+<configuration>
+
+    <property name="TIME_PATTERN" value="%date{HH:mm:ss.SSS}"/>
+    <property name="DATETIME_PATTERN" value="%date{dd.MM.yyyy HH:mm:ss.SSS}"/>
+    <property name="LEVEL_PATTERN" value="%-5level"/>
+    <property name="PACKAGE_PATTERN" value="%-50.50logger{49}"/>
+    <property name="USER_PATTERN" value="%10.-10X{userName}"/>
+    <property name="SESSION_PATTERN" value="%0.-20X{sessionId}"/>
+    <property name="MSG_PATTERN" value="%msg \\(%file:%line\\)#%method"/>
+
+    <property name="FILE_PATTERN" value="${DATETIME_PATTERN} [${LEVEL_PATTERN}] ${PACKAGE_PATTERN} - ${MSG_PATTERN}%n"/>
+    <property name="FILE_PATTERN_USER"
+              value="${DATETIME_PATTERN} [${LEVEL_PATTERN}] ${PACKAGE_PATTERN} - [${USER_PATTERN}] [${SESSION_PATTERN}] ${MSG_PATTERN}%n"/>
+    <property name="CONSOLE_PATTERN"
+              value="${TIME_PATTERN} [%highlight(${LEVEL_PATTERN})] %cyan(${PACKAGE_PATTERN}) - ${MSG_PATTERN}%n"/>
+
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${CONSOLE_PATTERN}</pattern>
+        </encoder>
+    </appender>
+    
+    <logger name="org.example" level="DEBUG"/>
+    <logger name="org.apache.kafka" level="INFO"/>
+    <logger name="org.apache.kafka.common.metrics" level="INFO"/>
+
+    <root level="warn">
+        <appender-ref ref="CONSOLE"/>
+    </root>
+</configuration>

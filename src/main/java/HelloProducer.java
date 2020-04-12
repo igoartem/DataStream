@@ -37,7 +37,7 @@ public class HelloProducer {
         KafkaProducer<Integer, String> producer = new KafkaProducer<>(props);
         log.trace("Start sending messages...");
         
-        KafkaConsumer<Integer, String> consumer = KafkaUtils.createConsumer();
+//        KafkaConsumer<Integer, String> consumer = KafkaUtils.createConsumer();
         
    
  
@@ -53,10 +53,10 @@ public class HelloProducer {
             producer.close();
         }
         
-           consumer.poll(Duration.ofSeconds(100)).forEach(longStringConsumerRecord -> {
-               System.out.println(longStringConsumerRecord);
-            log.error("111 {} {}", longStringConsumerRecord.key(), longStringConsumerRecord.value());
-           });
-           consumer.commitSync();
+//           consumer.poll(Duration.ofSeconds(100)).forEach(longStringConsumerRecord -> {
+//               System.out.println(longStringConsumerRecord);
+//            log.error("111 {} {}", longStringConsumerRecord.key(), longStringConsumerRecord.value());
+//           });
+//           consumer.commitSync();
     }
 }
